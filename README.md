@@ -1,5 +1,19 @@
 # Промежуточная аттестация - Розыгрыш товаров(игрушек) Java
 
+## GeekBrains... ???
+
+https://docs.google.com/document/d/1gw-SjDyKuT7dY4JEZ2hbrCuzdcP9sl2CFVyCVFhn-sU/edit?usp=sharing
+https://gbcdn.mrgcdn.ru/uploads/asset/5229387/attachment/408c3bb6810333103be60925f22013b9.pdf
+
+[!] - Это, прикол такой... у вас задание № 2-а в обоих документа по разному описано...
+
+<br>
+
+Проект сделал исходя из ТЗ описанного в даной инструкции:
+- https://docs.google.com/document/d/1gw-SjDyKuT7dY4JEZ2hbrCuzdcP9sl2CFVyCVFhn-sU/edit?usp=sharing
+
+<br>
+
 ## Информация о проекте(ТЗ)
 
     > Проект, содержащий функционал для проведения розыгрышей товаров.
