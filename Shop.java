@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -92,10 +93,10 @@ public class Shop {
         int r = 0;
         for ( i = 0; i < rounds; i++ ) {
             if ( lotProducts.size() == 0 ) {
-                System.out.println ("Список игрушек для розыгрыша опустел!" );
+                System.out.println ("\nСписок игрушек для розыгрыша опустел!" );
                 System.out.println( "Приносим свои извинения и ждем всех завтра!" );
                 System.out.println( View.Line() );
-                return;
+                break;
             }
 
             r = random.nextInt( lotProducts.size() );
@@ -110,7 +111,6 @@ public class Shop {
                 if ( lotProducts.get( r ).getCount() <= 0 ) {
                     System.out.println( "Товара: " + lotProducts.get( r ).getName() + ", больше не осталось" );
                     lotProducts.remove( r );
-                    System.out.println( lotProducts );
                 }
             } else {
                 System.out.println( "К сожаления получить: " + lotProducts.get( r ).getName() + ", не удалось" );
@@ -137,11 +137,10 @@ public class Shop {
     // Чтение из файла
     public void addFromFile( String filePath ) {
         // TO-DO: Проверка - Существует ли файл
-        try ( BufferedReader reader = new BufferedReader( new FileReader( filePath, StandardCharsets.UTF_8 ) ) ) {
-            // for ( String line = reader.readLine(); line != null; line = reader.readLine() ) {
+        try ( BufferedReader iReader = new BufferedReader( new FileReader( filePath, StandardCharsets.UTF_8 ) ) ) {
             String line;
-
-            while ( ( line = reader.readLine() ) != null ) {
+            // for ( String line = reader.readLine(); line != null; line = reader.readLine() ) {
+            while ( ( line = iReader.readLine() ) != null ) {
                 String[] rec = line.split( "," );
                 int count = Integer.parseInt( rec[2] );
                 if ( count > 0 ) {
@@ -161,20 +160,27 @@ public class Shop {
 
     // Запись в файл
     public void saveFromFile( String filePath, ArrayList<Product> products ) {
-        try ( FileWriter iWriter = new FileWriter( filePath, StandardCharsets.UTF_8 ) ) {
-            // for (Product product : products) {
-
-                for ( int i = 0; i < products.size(); i++ ) {
+        try ( BufferedWriter iWriter = new BufferedWriter( new FileWriter( filePath, StandardCharsets.UTF_8 ) ) ) {
+            // for ( Product product : products ) {
+            for ( int i = 0; i < products.size(); i++ ) {
                 int    id     = products.get( i ).getId();
                 String name   = products.get( i ).getName();
                 int    count  = products.get( i ).getCount();
                 int    chance = products.get( i ).getChance();
                 iWriter.write( String.format( "%d,%s,%d,%s%n", id, name, count, chance ) );
             }
-            System.out.println( "\n[+] Информация о розыгрыше успешно сохранена" );
-            System.out.println( View.Line() );
+
+            if ( products.size() == 0 ) {
+                System.out.println( "\n[*] Товаров не имеется, нужно ехать за новой партией" );
+                System.out.println( View.Line() );
+            } else {
+                System.out.println( "\n[+] Информация о розыгрыше успешно сохранена" );
+                System.out.println( View.Line() );
+            }
         } catch ( IOException e ) {
-            e.printStackTrace();
+            System.out.println( "\n" + View.Line() );
+            System.out.println( "[!] Ошибка при записи в файл " + filePath + ": " + e.getMessage());
+            System.out.println( View.Line() );
         }
     }
 
